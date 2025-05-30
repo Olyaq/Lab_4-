@@ -19,7 +19,7 @@ class Blackjack:
         total = sum(hand)
         # Если перебор и есть туз (11), меняем его на 1
         if total > 21 and 11 in hand:
-            total -= 10  # Эквивалентно замене 11 на 1
+            total -= 10  #  заменf 11 на 1
         return total
 
     def play(self):

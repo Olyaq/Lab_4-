@@ -1,13 +1,12 @@
 # Игровое поле (список из 9 элементов)
 board = [' '] * 9
 
-
 # Функция отображения игрового поля
 def show_board():
-    for i in range(3):
-        print(f" {board[i * 3]} | {board[i * 3 + 1]} | {board[i * 3 + 2]} ")
+    for i in range(3): # цикл по строкам
+        print(f" {board[i * 3]} | {board[i * 3 + 1]} | {board[i * 3 + 2]} ") # вычисляют индексы для текущей строки
         if i < 2:
-            print("-----------")
+            print("-----------") # разделяет между строками
 
 
 # Проверка победы
@@ -19,34 +18,32 @@ def check_win():
         [0, 4, 8], [2, 4, 6]  # диагонали
     ]
 
-    for a, b, c in wins:
-        if board[a] == board[b] == board[c] != ' ':
+    for a, b, c in wins: # содержит все 8 возможных выигрышных комбинаций (3 строки, 3 столбца, 2 диагонали)
+        if board[a] == board[b] == board[c] != ' ': #проверяет все вохможные комбинации
             return board[a]  # возвращает 'X' или 'O'
-
-    return 'Ничья' if ' ' not in board else None
-
+    return 'Ничья' if ' ' not in board else None # Если нет победителя и нет пустых клеток, возвращает 'Ничья, None (игра продолжается)
 
 # Основной игровой цикл
 def game():
     player = 'X'  # Первый игрок
 
-    while True:
+    while True: #внешний бесконечный цикл продолжается до победы или ничья
         show_board()
 
         # Ход игрока
         while True:
             try:
-                move = int(input(f"Игрок {player}, введите номер клетки (1-9): ")) - 1
-                if 0 <= move <= 8 and board[move] == ' ':
+                move = int(input(f"Игрок {player}, введите номер клетки (1-9): ")) - 1 #преобразует ввод (1-9) в индекс (0-8)
+                if 0 <= move <= 8 and board[move] == ' ': # Проверяет, что индекс в диапазоне и клетка свободна
                     break
                 print("Некорректный ход! Попробуйте еще раз.")
             except ValueError:
                 print("Введите число от 1 до 9!")
 
-        board[move] = player
+        board[move] = player # записывает символ игрока в выбранную клетку
 
         # Проверка результата
-        result = check_win()
+        result = check_win() # Проверяет результат игры
         if result:
             show_board()
             print("Ничья!" if result == 'Ничья' else f"Игрок {result} победил!")
